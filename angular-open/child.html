@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org">
+  <head>
+      <script src="bower_components/angular/angular.min.js"></script>
+      <script type="text/javascript">
+      angular.module('app', [])
+      .controller('MainCtrl', function($scope){
+
+          window.updatedata = function(data) {
+            $scope.$apply(function(){
+              $scope.value = data;
+            });
+          };
+
+          $scope.updateValor = function(){
+              window.opener.atualizarValor($scope.valor);
+          }
+
+      });
+      </script>
+  </head>
+  <body ng:app="app" ng:controller="MainCtrl">
+    <p>Value: {{value}}</p>
+
+    <div><input type="text" ng:change="updateValor()" ng:model="valor"><br></div>
+  </body>
+</html>
