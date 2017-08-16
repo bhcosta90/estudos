@@ -1,0 +1,12 @@
+{
+    "name": "root/html",
+    "authors": [
+        {
+            "name": "Bruno",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php": "^3.33"
+    }
+}
