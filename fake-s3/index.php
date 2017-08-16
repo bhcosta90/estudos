@@ -23,7 +23,7 @@ $size = getimagesize(__DIR__ . "/img/84179_index_gg.jpg");
 
 $key = 123456;
 
-$s3->putObject(array(
+/*$s3->putObject(array(
     'Bucket'       => "s3",
     'Key'          => $key . ".jpg",
     'SourceFile'   => __DIR__ . "/img/84179_index_gg.jpg",
@@ -32,8 +32,7 @@ $s3->putObject(array(
     'StorageClass' => 'REDUCED_REDUNDANCY'
 ));
 
-print "<img src='http://localhost:4567/fakes3/s3/$key.jpg' />";
-// exit;
+print "<img src='http://localhost:4567/fakes3/s3/$key.jpg' />";//*/
 
 try {
     $objects = $s3->getIterator('ListObjects', array(
@@ -42,13 +41,19 @@ try {
 
     echo "Keys retrieved!\n";
     print "<pre>";
-    foreach ($objects as $object) {
-        echo "<br>";
-        print_r($object);
-    }
+    print_r($objects);
+    // foreach ($objects as $object) {
+    //     echo "<br>";
+    //     print_r($object);
+    // }
     print "</pre>";
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }//*/
+
+/*$s3->deleteObject(array(
+    'Bucket' => "s3",
+    'Key'    => $key . ".jpg"
+));//*/
 
 ?>
