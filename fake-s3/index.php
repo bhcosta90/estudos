@@ -8,7 +8,7 @@ use Aws\S3\Exception\S3Exception;
 $s3 = S3Client::factory(array(
     'version' => 'latest',
     'region'  => '',
-    'endpoint' => 'http://fakes3:4569',
+    'endpoint' => 'http://fakes3:4567',
     'credentials' => [
         'key' => '',
         'secret' => ''
@@ -21,21 +21,23 @@ $s3 = S3Client::factory(array(
 
 $size = getimagesize(__DIR__ . "/img/84179_index_gg.jpg");
 
+$key = 123456;
+
 $s3->putObject(array(
     'Bucket'       => "s3",
-    'Key'          => $imagem = time() . ".jpg",
+    'Key'          => $key . ".jpg",
     'SourceFile'   => __DIR__ . "/img/84179_index_gg.jpg",
     'ContentType'  => $size['mime'],
     'ACL'          => 'public-read',
     'StorageClass' => 'REDUCED_REDUNDANCY'
 ));
 
-print "<img src='http://s3.fakes3:4569/$imagem' />";
+print "<img src='http://localhost:4567/fakes3/s3/$key.jpg' />";
 // exit;
 
 try {
     $objects = $s3->getIterator('ListObjects', array(
-        'Bucket' => ''
+        'Bucket' => 's3'
     ));
 
     echo "Keys retrieved!\n";
@@ -47,6 +49,6 @@ try {
     print "</pre>";
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
-}
+}//*/
 
 ?>

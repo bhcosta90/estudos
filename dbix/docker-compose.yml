@@ -1,0 +1,18 @@
+version: '2'
+services:
+  web:
+    build: config
+    ports:
+     - "80:80"
+    volumes:
+     - ./cgi-bin:/var/www/cgi-bin
+    links:
+     - mysql
+  mysql:
+    image: mysql:5.7
+    ports:
+     - "3306:3306"
+    volumes:
+     - ./volumes/mysql/var/lib/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
