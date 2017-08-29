@@ -11,7 +11,7 @@ services:
     ports:
       - "3306:3306"
   php:
-    build: "."
+    build: "etc"
     mem_limit: 500m
     volumes:
       - "./:/var/www/html"
