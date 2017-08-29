@@ -17,6 +17,7 @@ class v1 {
             $table->increments('id');
             $table->string('login');
             $table->string('senha');
+            $table->string('token')->nullable();
             $table->timestamps();
             $table->timestamp('remove_at')->nullable();
         });
