@@ -1,0 +1,17 @@
+{
+    "name": "bruno.henrique/slim-eliquont",
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bruno.henrique@kabum.com.br"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0",
+        "illuminate/database": "~5.1"
+    },
+    "autoload": {
+        "files": [ "app/config.php" ],
+        "classmap": [ "app/models" ]
+    }
+}
