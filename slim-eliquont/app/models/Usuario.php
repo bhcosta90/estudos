@@ -30,11 +30,15 @@ class Usuario extends Eloquent {
 		$this->attributes['senha'] = $value ? password_hash($value, PASSWORD_DEFAULT) : null;
 	}
 
+	public function valida($senha){
+		return password_verify($senha, $this->attributes['senha']) ? $this : false;
+	}
+
 	public function save(array $options = array()){
 		if($this->gerarToken){
 			$this->token = md5(time() . rand(1,9999));
 		}
-		
+
 		parent::save($options);
 	}
 }

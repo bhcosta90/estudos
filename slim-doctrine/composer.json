@@ -1,0 +1,20 @@
+{
+    "name": "bruno.henrique/slim-eliquont",
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bruno.henrique@kabum.com.br"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0",
+        "doctrine/orm": "2.4.*",
+        "oro/doctrine-extensions": "v1.2"
+    },
+    "autoload": {
+        "psr-4": {"app\\": "app"}
+    },
+    "files": [ "app/config.php" ],
+    "classmap": [ "app/entity", "app/traits"  ],
+    "doctrine/migrations": "^1.5"
+}

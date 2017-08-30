@@ -4,6 +4,8 @@ require __DIR__.'/../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as DB;
 
+define('TEMPO', time());
+define('MICRO', microtime());
 
 $app = new Slim\App();
 
@@ -31,7 +33,15 @@ function getSQL($builder, $number=false) {
 
 $app->group('/usuario', function () {
     $this->post('/login', function ($request, $response, $args) {
-        if($user = validarUsuario()){
+        $login = $_SERVER["PHP_AUTH_USER"] ?? $_POST['client_login'];
+        $senha = $_SERVER["PHP_AUTH_PW"] ?? $_POST['client_password'];
+
+        $user = (new Usuario())->where("login", '=', $login)->first();
+        if($user){
+            $user = $user->valida($senha);
+        }
+
+        if($user){
             $user->gerarToken = 1;
             $user->save();
 
@@ -41,7 +51,9 @@ $app->group('/usuario', function () {
             ->write(json_encode([
                 "status" => "S",
                 "mensagem" => "Usuário logado com sucesso",
-                "token" => $user->token,
+                "user" => [
+                    "token" => $user->token,
+                ],
             ]));
         }else{
             return $response
@@ -69,43 +81,49 @@ $app->group('/usuario', function () {
                 "mensagem" => "Usuário já cadastrado em nosso sistema"
             ]));
         }else{
-
+            DB::beginTransaction();
             $user->login = strtolower($data['login']);
             $user->senha = $data["senha"];
             $user->save();
+            DB::commit();
 
             return $response
             ->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
             ->write(json_encode([
                 "status" => "S",
-                "mensagem" => "Usuário cadastrado com sucesso"
+                "mensagem" => "Usuário cadastrado com sucesso",
+                "tempo" => [
+                    "total" => microtime() - MICRO,
+                    "inicio" => MICRO,
+                    "fim" => microtime()
+                ]
             ]));
         }
     });
 });
 
-$app->group('/automovel', function(){
-    $this->post('/novo', function ($request, $response, $args) {
-        if($user = validarUsuario()){
-            return $response
-            ->withStatus(200)
-            ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([
-                "status" => "S",
-                "mensagem" => $user->id
-            ]));
-        }else{
-            return $response
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([
-                "status" => "E",
-                "mensagem" => "Usuário inválido",
-            ]));
-        }
-    });
-});
+// $app->group('/automovel', function(){
+//     $this->post('/novo', function ($request, $response, $args) {
+//         if($user = validarUsuario()){
+//             return $response
+//             ->withStatus(200)
+//             ->withHeader('Content-Type', 'application/json')
+//             ->write(json_encode([
+//                 "status" => "S",
+//                 "mensagem" => $user->id
+//             ]));
+//         }else{
+//             return $response
+//             ->withStatus(404)
+//             ->withHeader('Content-Type', 'application/json')
+//             ->write(json_encode([
+//                 "status" => "E",
+//                 "mensagem" => "Usuário inválido",
+//             ]));
+//         }
+//     });
+// });
 
 
 // $app->get('/', function() {
