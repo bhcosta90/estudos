@@ -23,9 +23,7 @@ class Automovel {
     /** @Column(type="text") **/
     protected $descricao;
 
-    /**
-    * @ManyToOne(targetEntity="Usuario")
-    */
+    /** @ManyToOne(targetEntity="Usuario") */
     protected $usuario;
 
     use Data;

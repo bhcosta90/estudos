@@ -20,6 +20,9 @@ class Usuario {
     /** @Column(type="string", nullable=true) **/
     protected $token;
 
+    /** @Column(type="string", nullable=true) **/
+    protected $dataAtivo;
+
     use Data;
 
     public function getId()
