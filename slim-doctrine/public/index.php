@@ -9,15 +9,21 @@ use \app\entities\Usuario;
 $app = new Slim\App();
 
 function validarUsuario(){
-    // $login = $_SERVER["PHP_AUTH_USER"] ?? $_POST['client_login'];
-    // $senha = $_SERVER["PHP_AUTH_PW"] ?? $_POST['client_password'];
     $login = $_SERVER['HTTP_AUTHORIZATION'];
 
-    $qry = getEm()->getRepository(app\entities\Usuario::class)->findOneByToken(strtolower($data['login']));
+    $user = getEm()->getRepository(app\entities\Usuario::class)->findOneByToken($login);
 
-    $user = $qry->first();
+    if(!$user){
+        header('Content-Type: text/json');
+        http_response_code(403);
+        print json_encode([
+            "status" => "E",
+            "mensagem" => "Credenciais inválidas"
+        ]);
+        exit;
+    }
 
-    return $user ?? false;
+    return $user;
 }
 
 $app->group('/usuario', function () {
@@ -90,6 +96,21 @@ $app->group('/usuario', function () {
                     "inicio" => MICRO,
                     "fim" => microtime()
                 ]
+            ]));
+        }
+    });
+});
+
+$app->group('/automovel', function(){
+    $this->post('/novo', function ($request, $response, $args) {
+
+        if($user = validarUsuario()){
+            return $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode([
+                "status" => "S",
+                "mensagem" => $user->getId(),
             ]));
         }
     });
