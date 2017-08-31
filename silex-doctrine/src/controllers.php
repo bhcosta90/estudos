@@ -54,7 +54,7 @@ $app->mount('/usuario', function ($usuario) use($app){
                 ]
             ]), 200, ['Content-Type' => 'application/json']);
         }
-    });
+    })->bind('usuario_novo');
 });
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
