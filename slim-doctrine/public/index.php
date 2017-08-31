@@ -1,8 +1,22 @@
 <?php
 require __DIR__.'/../config.php';
 
-define('TEMPO', time());
-define('MICRO', microtime());
+function tempoExecucao($start = null) {
+    // Calcula o microtime atual
+    $mtime = microtime(); // Pega o microtime
+    $mtime = explode(' ',$mtime); // Quebra o microtime
+    $mtime = $mtime[1] + $mtime[0]; // Soma as partes montando um valor inteiro
+    if ($start == null) {
+        // Se o parametro n�o for especificado, retorna o mtime atual
+        return $mtime;
+    } else {
+        // Se o parametro for especificado, retorna o tempo de execu��o
+        return round($mtime - $start, 2);
+    }
+}
+
+define('MICRO', tempoExecucao());
+define('TEMPO', floatval(time()));
 
 use \app\entities\Usuario;
 
@@ -75,57 +89,62 @@ $app->group('/usuario', function () {
             ->withHeader('Content-Type', 'application/json')
             ->write(json_encode([
                 "status" => "E",
-                "mensagem" => "Usuário já cadastrado em nosso sistema"
+                "mensagem" => "Usuário já cadastrado em nosso sistema",
+                "tempo" => [
+                    "total" => tempoExecucao(MICRO),
+                    "inicio" => MICRO,
+                    "fim" => floatval(microtime())
+                ]
             ]));
         }else{
 
-            // $user->setLogin($data["login"]);
+            $user->setLogin($data["login"]);
             $user->setSenha($data["senha"]);
-            //
-            // getEm()->persist($user);
-            // getEm()->flush();
 
-            try{
-                $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
-                $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-                $mail->isSMTP();                                      // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'bhcosta90@gmail.com';                 // SMTP username
-                $mail->Password = 'ma03012013';                           // SMTP password
-                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 587;                                    // TCP port to connect to
+            getEm()->persist($user);
+            getEm()->flush();
 
-                //Recipients
-                $mail->setFrom('bhcosta90@gmail.com', 'Bruno Costa');
-                $mail->addAddress($email);     // Add a recipient
-                // $mail->addAddress('ellen@example.com');               // Name is optional
-                // $mail->addReplyTo('info@example.com', 'Information');
-                // $mail->addCC('cc@example.com');
-                // $mail->addBCC('bcc@example.com');
-
-                //Attachments
-                // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-                //Content
-                $mail->isHTML(true);                                  // Set email format to HTML
-
-                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-                $domainName = $_SERVER['HTTP_HOST'];
-
-                $link = $protocol.$domainName."/usuario/ativar-conta?token=" . base64_encode($user->getSenha());
-
-                $msg = "<h3>Olá, seja bem vindo</h3>";
-                $msg .= "<p>Ocorreu um cadastro em nosso site para o e-mail: $email.</p>";
-                $msg .= "<p>Se acaso não foi solicitado por você, favor desconsiderar esse e-mail.</p>";
-                $msg .= "<p>Par ativa seu e-mail em nosso site, favor <a href='{$link}'>clique aqui</a>.</p>";
-
-                $mail->Subject = utf8_decode('Ativação de Conta');
-                $mail->Body    = $msg;
-                $mail->AltBody = 'Ativação de conta';
-
-                $mail->send();
+            // try{
+                // $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+                // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+                // $mail->isSMTP();                                      // Set mailer to use SMTP
+                // $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                // $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                // $mail->Username = 'bhcosta90@gmail.com';                 // SMTP username
+                // $mail->Password = 'ma03012013';                           // SMTP password
+                // $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                // $mail->Port = 587;                                    // TCP port to connect to
+                //
+                // //Recipients
+                // $mail->setFrom('bhcosta90@gmail.com', 'Bruno Costa');
+                // $mail->addAddress($email);     // Add a recipient
+                // // $mail->addAddress('ellen@example.com');               // Name is optional
+                // // $mail->addReplyTo('info@example.com', 'Information');
+                // // $mail->addCC('cc@example.com');
+                // // $mail->addBCC('bcc@example.com');
+                //
+                // //Attachments
+                // // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                // // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+                //
+                // //Content
+                // $mail->isHTML(true);                                  // Set email format to HTML
+                //
+                // $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+                // $domainName = $_SERVER['HTTP_HOST'];
+                //
+                // $link = $protocol.$domainName."/usuario/ativar-conta?token=" . base64_encode($user->getSenha());
+                //
+                // $msg = "<h3>Olá, seja bem vindo</h3>";
+                // $msg .= "<p>Ocorreu um cadastro em nosso site para o e-mail: $email.</p>";
+                // $msg .= "<p>Se acaso não foi solicitado por você, favor desconsiderar esse e-mail.</p>";
+                // $msg .= "<p>Par ativa seu e-mail em nosso site, favor <a href='{$link}'>clique aqui</a>.</p>";
+                //
+                // $mail->Subject = utf8_decode('Ativação de Conta');
+                // $mail->Body    = $msg;
+                // $mail->AltBody = 'Ativação de conta';
+                //
+                // $mail->send();
 
                 return $response
                 ->withStatus(200)
@@ -134,22 +153,22 @@ $app->group('/usuario', function () {
                     "status" => "S",
                     "mensagem" => "Usuário cadastrado com sucesso",
                     "tempo" => [
-                        "total" => microtime() - MICRO,
+                        "total" => tempoExecucao(MICRO),
                         "inicio" => MICRO,
-                        "fim" => microtime()
+                        "fim" => floatval(microtime())
                     ]
                 ]));
 
-            }catch(\PHPMailer\PHPMailer\Exception $e){
-                return $response
-                ->withStatus(200)
-                ->withHeader('Content-Type', 'application/json')
-                ->write(json_encode([
-                    "status" => "E",
-                    "mensagem" => $mail->ErrorInfo,
-
-                ]));
-            }
+            // }catch(\PHPMailer\PHPMailer\Exception $e){
+            //     return $response
+            //     ->withStatus(200)
+            //     ->withHeader('Content-Type', 'application/json')
+            //     ->write(json_encode([
+            //         "status" => "E",
+            //         "mensagem" => $mail->ErrorInfo,
+            //
+            //     ]));
+            // }
         }
     });
 });
