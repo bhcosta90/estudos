@@ -7,9 +7,10 @@
 
 namespace Application;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use src\Util\Http;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -17,19 +18,19 @@ return [
             'home' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                     ],
                 ],
             ],
             'application' => [
-                'type'    => Literal::class,
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/application',
+                    'route' => '/application',
                     'constraints' => [
-                        'id'     => '[a-zA-Z0-9]+',
+                        'id' => '[a-zA-Z0-9]+',
                     ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
@@ -38,14 +39,14 @@ return [
                 "may_terminate" => true,
                 "child_routes" => [
                     "api" => [
-                        'type'    => Segment::class,
+                        'type' => Segment::class,
                         'options' => [
-                            'route'    => '/api[/:id]',
+                            'route' => '/api[/:id]',
                             'constraints' => [
-                                'id'     => '[a-zA-Z0-9]+',
+                                'id' => '[a-zA-Z0-9]+',
                             ],
                             'defaults' => [
-                                'controller' => Controller\RestFullController::class,
+                                'controller' => Controller\IndexRestController::class,
                             ],
                         ]
                     ]
@@ -55,24 +56,53 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\RestFullController::class => InvokableFactory::class,
+            Controller\IndexController::class => Controller\Factory\IndexFactory::class,
+            Controller\IndexRestController::class => Controller\Factory\IndexRestFactory::class,
         ],
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
     ],
+    'service_manager' => [
+        'factories' => [
+            "http" => function () {
+                $url = new Http();
+                return $url;
+            }
+        ]
+    ],
+    'doctrine' => [
+        'driver' => [
+            str_replace('\\', '_', __NAMESPACE__) . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../src/Entity'
+                ]
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => str_replace('\\', '_', __NAMESPACE__) . '_driver'
+                ]
+            ]
+        ],
+        'fixtures' => [
+            __NAMESPACE__ . 'Fixture' => __DIR__ . '/../src/Fixture'
+        ]
+    ]
+
+
 ];

@@ -8,9 +8,10 @@
 
 namespace src\Abstracts;
 
+use src\Traits\Base;
 use Zend\Mvc\Controller\AbstractActionController as c;
 
 abstract class AbstractActionController extends c
 {
-
+    use Base;
 }

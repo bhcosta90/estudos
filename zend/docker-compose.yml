@@ -2,6 +2,17 @@ version: '2'
 
 services:
 
+  db:
+     environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=doctrine
+       - MYSQL_USER=root
+     image: "mysql:5.7"
+     volumes:
+       - "./data/server/mysql:/var/lib/mysql"
+     ports:
+       - "3306:3306"
+
   app:
     build: .docker/php
     container_name: php7

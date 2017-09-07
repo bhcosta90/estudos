@@ -18,7 +18,8 @@
         "zfcampus/zf-development-mode": "^3.0",
         "doctrine/doctrine-orm-module": "^1.1",
         "doctrine/migrations": "^1.5",
-        "oro/doctrine-extensions": "^1.2"
+        "oro/doctrine-extensions": "^1.2",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
         "psr-4": {
