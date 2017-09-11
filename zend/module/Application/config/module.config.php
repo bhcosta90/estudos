@@ -52,12 +52,40 @@ return [
                     ]
                 ]
             ],
+            'usuario' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/usuario',
+                    'constraints' => [
+                        'id' => '[a-zA-Z0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                    ],
+                ],
+                "may_terminate" => true,
+                "child_routes" => [
+                    "api" => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/api[/:id]',
+                            'constraints' => [
+                                'id' => '[a-zA-Z0-9]+',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RestClienteController::class,
+                            ],
+                        ]
+                    ]
+                ]
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexFactory::class,
             Controller\IndexRestController::class => Controller\Factory\IndexRestFactory::class,
+            Controller\RestClienteController::class => Controller\Factory\RestClienteFactory::class,
         ],
     ],
     'view_manager' => [
