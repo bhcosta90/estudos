@@ -15,13 +15,11 @@ services:
 
   app:
     build: .docker/php
-    container_name: php7
     volumes:
       - .:/app
 
   nginx:
     build: .docker/nginx
-    container_name: nginx
     volumes_from:
       - app
     ports:
