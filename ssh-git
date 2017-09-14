@@ -1,0 +1,5 @@
+executa no console
+	ssh-keygen
+
+depois veja o contéudo do arquivo
+	~/.ssh/id_rsa.pub
