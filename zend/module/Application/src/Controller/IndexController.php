@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Swagger\Annotations as SWG;
 use src\Abstracts\AbstractActionController;
 use src\Util\Http;
 
@@ -9,6 +10,11 @@ use src\Util\Http;
 
 #https://samsonasik.wordpress.com/2012/10/31/zend-framework-2-step-by-step-create-restful-application/
 #https://github.com/Tony133/ZF3-ApiRest
+
+/**
+ * @SWG\Info(title="Api", version="0.1")
+ *
+ */
 
 class IndexController extends AbstractActionController
 {

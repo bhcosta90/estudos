@@ -13,6 +13,11 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
 return [
+    'swagger' => [
+        'paths' => [
+            __DIR__ . '/../src'
+        ],
+    ],
     'router' => [
         'routes' => [
             'home' => [

@@ -16,4 +16,5 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Application',
+    'SwaggerModule'
 ];

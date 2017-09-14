@@ -19,7 +19,10 @@
         "doctrine/doctrine-orm-module": "^1.1",
         "doctrine/migrations": "^1.5",
         "oro/doctrine-extensions": "^1.2",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "outeredge/swagger-module": "^2.1",
+        "zendframework/zend-json": "^3.0",
+        "tasmaniski/zend-swagger": "dev-master"
     },
     "autoload": {
         "psr-4": {

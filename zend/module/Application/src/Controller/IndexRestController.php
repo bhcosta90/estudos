@@ -2,25 +2,53 @@
 
 namespace Application\Controller;
 
-
+use Swagger\Annotations as SWG;
 use src\Abstracts\AbstractRestfulController;
 
 class IndexRestController extends AbstractRestfulController
 {
+    /*
+     * @SWG\Get(
+     *     path="/application/api/{id}",
+     *     tags={"Teste de Api"},
+     *     @SWG\Parameter(name="id", type="integer", in="path"),
+     *     @SWG\Response(
+     *      response="200",
+     *      description="An example resource",
+     *      examples={"application/json": {"teste": "teste"}},
+     *      schema={"$ref": "#/definitions/Usuario"}
+     *     ),
+     *     @SWG\Response(response="500", description="An example resource")
+     * )
+     */
     public function get($id)
     {
         $response = $this->getResponseWithHeader()
-            ->setContent(__METHOD__ . ' get current data with id =  ' . $id);
+            ->setContent(json_encode([__METHOD__ . ' get current data with id =  ' . $id]));
         return $response;
     }
 
     public function getList()
     {
         $response = $this->getResponseWithHeader()
-            ->setContent(__METHOD__ . ' get the list of data');
+            ->setContent(json_encode([__METHOD__ . ' get the list of data']));
         return $response;
     }
 
+    /*
+     * @SWG\Post(
+     *     ="/application/api/{id}",
+     *     tags={"Teste de Api"},
+     *     @SWG\Parameter(name="id", type="string", in="query"),
+     *     @SWG\Response(
+     *      response="200",
+     *      description="An example resource",
+     *      examples={"application/json": {"teste": "teste"}},
+     *      schema={"$ref": "#/definitions/Usuario"}
+     *     ),
+     *     @SWG\Response(response="500", description="An example resource")
+     * )
+     */
     public function create($data)
     {
         $response = $this->getResponseWithHeader()
@@ -55,7 +83,8 @@ class IndexRestController extends AbstractRestfulController
             //make can accessed by *
             ->addHeaderLine('Access-Control-Allow-Origin', '*')
             //set allow methods
-            ->addHeaderLine('Access-Control-Allow-Methods', 'POST PUT DELETE GET');
+            ->addHeaderLine('Access-Control-Allow-Methods', 'POST PUT DELETE GET')
+        ->addHeaderLine('Content-type', 'text/json');
 
         return $response;
     }
