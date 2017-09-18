@@ -1,0 +1,9 @@
+---
+services:
+  centos:
+    build: "."
+    mem_limit: 96m
+    volumes:
+      - "./:/var/www/html"
+      - "../data/:/var/www/html/data"
+version: "2"

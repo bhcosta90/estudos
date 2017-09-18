@@ -1,0 +1,19 @@
+---
+services:
+  php:
+    build: "."
+    mem_limit: 500m
+    volumes:
+      - "./:/var/www/html"
+      - "../data/:/var/www/html/data"
+  web:
+    image: "nginx:latest"
+    mem_limit: 96m
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ".:/var/www/html"
+      - "./etc/nginx/:/etc/nginx/conf.d/"
+      - "./.data/nginx/logs:/var/log/nginx/"
+version: "2"
