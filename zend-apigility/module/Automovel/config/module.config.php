@@ -28,7 +28,7 @@ return [
             'automovel.rest.automovel' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/automovel[/:automovel_id]',
+                    'route' => '/api/v1/automovel[/:automovel_id]',
                     'defaults' => [
                         'controller' => 'Automovel\\V1\\Rest\\Automovel\\Controller',
                     ],
@@ -37,7 +37,7 @@ return [
             'automovel.rest.usuario' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/usuario[/:usuario_id]',
+                    'route' => '/api/v1/usuario[/:usuario_id]',
                     'defaults' => [
                         'controller' => 'Automovel\\V1\\Rest\\Usuario\\Controller',
                     ],
@@ -296,5 +296,8 @@ return [
                 ],
             ],
         ],
+    ],
+    'controllers' => [
+        'factories' => [],
     ],
 ];

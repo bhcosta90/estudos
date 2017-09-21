@@ -4,13 +4,13 @@ return [
         'selectors' => [],
     ],
     'db' => [
-        'adapters' => [
-            'dummy' => [],
-        ],
+        'adapters' => [],
     ],
     'zf-mvc-auth' => [
         'authentication' => [
-            'map' => [],
+            'map' => [
+                'Automovel\\V1' => 'simples',
+            ],
         ],
     ],
 ];
