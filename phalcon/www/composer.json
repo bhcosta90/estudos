@@ -1,0 +1,12 @@
+{
+    "name": "bruno.henrique/www",
+    "authors": [
+        {
+            "name": "Bruno",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.5"
+    }
+}
