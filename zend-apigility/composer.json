@@ -33,7 +33,8 @@
         "zfcampus/zf-development-mode": "^3.0",
         "doctrine/doctrine-orm-module": "^1.1",
         "doctrine/migrations": "^1.5",
-        "zfcampus/zf-apigility-documentation-swagger": "^1.2"
+        "zfcampus/zf-apigility-documentation-swagger": "^1.2",
+        "zendframework/zend-console": "^2.6"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.1",
@@ -50,15 +51,15 @@
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
         },
         "files": [
             "src/Apigility/constants.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "module/Application/test/"
+        }
     },
     "scripts": {
         "cs-check": "phpcs",
@@ -68,5 +69,8 @@
         "development-status": "zf-development-mode status",
         "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php",
         "test": "phpunit"
+    },
+    "informacao": {
+        "swagger": "apigility/swagger"
     }
 }

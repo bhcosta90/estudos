@@ -1,5 +1,8 @@
 <?php
 return [
+    'Automovel\\V1\\Rest\\Usuario\\Controller' => [
+        'description' => 'API de Usuário',
+    ],
     'Automovel\\V1\\Rest\\Automovel\\Controller' => [
         'collection' => [
             'GET' => [
@@ -153,5 +156,6 @@ return [
 }',
             ],
         ],
+        'description' => 'API de Automóveis',
     ],
 ];
