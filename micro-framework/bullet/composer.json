@@ -1,0 +1,6 @@
+{
+    "require": {
+        "vlucas/bulletphp": "^1.4"
+    },
+    "doc": "http://bulletphp.com"
+}

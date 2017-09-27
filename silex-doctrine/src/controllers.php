@@ -19,7 +19,17 @@ $app->get('/', function () use ($app) {
 })
 ->bind('homepage');
 
+$app->get('/test', function () use ($app) {
+      return json_encode(['123']);
+})
+->bind('test');
+
+
 $app->mount('/usuario', function ($usuario) use($app){
+    $usuario->get('/novo', function (Request $request) use($app){
+        return 1;
+    });
+
     $usuario->post('/novo', function (Request $request) use($app){
 
 
