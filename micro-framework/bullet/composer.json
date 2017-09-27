@@ -1,6 +1,12 @@
 {
     "require": {
-        "vlucas/bulletphp": "^1.4"
+        "vlucas/bulletphp": "^1.4",
+        "twig/twig": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "BCosta\\" : "src/BCosta"
+        }
     },
     "doc": "http://bulletphp.com"
 }
