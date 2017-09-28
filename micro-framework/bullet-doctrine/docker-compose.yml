@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  db:
+     env_file:
+       - .env
+     image: "mysql:5.7"
+     volumes:
+       - "./.data/server/mysql:/var/lib/mysql"
+     ports:
+       - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - '9000:80'
+
+  app:
+    build: .docker/php
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  nginx:
+    build: .docker/nginx
+    volumes_from:
+      - app
+    ports:
+      - "8080:80"
+    volumes:
+      - "./.data/server/nginx:/var/log/nginx/"

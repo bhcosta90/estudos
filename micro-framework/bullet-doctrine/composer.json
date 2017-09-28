@@ -1,0 +1,16 @@
+{
+    "require": {
+        "vlucas/bulletphp": "^1.4",
+        "doctrine/orm": "^2.4",
+        "jms/serializer": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Entity\\" : "src/Entity"
+        },
+        "files": [
+            "bootstrap.php"
+        ]
+    },
+    "doc": "http://bulletphp.com"
+}
