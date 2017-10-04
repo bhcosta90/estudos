@@ -1,0 +1,24 @@
+---
+services:
+  php:
+    build: "etc/conf"
+    mem_limit: 500m
+    volumes:
+      - "./:/sites/producao"
+      - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./.data/server/redis:/var/redis"
+  web:
+    image: "nginx:latest"
+    mem_limit: 96m
+    ports:
+      - "80:80"
+    volumes:
+      - ".:/sites/producao"
+      - "./etc/nginx/:/etc/nginx/conf.d/"
+      - "./.data/server/nginx/nginx/logs:/var/log/nginx/"
+version: "2"
