@@ -43,32 +43,36 @@ function getEm(){
     return $conn;
 }
 
-getEm();
-
 $app->path('/cliente', function($request) use ($app) {
     $app->get(function($request) use($app) {
 
         $app->format('json', function($request) use($app) {
             $dados = getEm()->select("cliente", [
-                "id",
-                "nome"
-            ], [
+                "id (id)",
+                "nome (nomeee)"
+            ],[
+                "id[>]" => 0,
+                "LIMIT" => [0, 20],
+                "ORDER" => ["cliente.id" => "DESC"],
+            ]);
+
+            $total = getEm()->count("cliente", [
                 "id[>]" => 0
             ]);
 
-            return $app->response(404, ["status" => "S", "dados" => $dados]);
+            return $app->response(200, ["total" => $total, "dados" => $dados]);
         });
     });
 
     $app->post(function() use($app){
         getEm()->action(function($database) {
-            for($i =0; $i < 100; $i++)
-                $database->insert("cliente", [
-                    "nome" => time(),
-                ]);
+            for($i =0; $i < 1000; $i++)
+            $database->insert("cliente", [
+                "nome" => time(),
+            ]);
         });
 
-        return $app->response(404, ["status" => "S", "id" => getEm()->id()]);
+        return $app->response(200, ["status" => "S", "id" => getEm()->id()]);
     });
 
     $app->param('int', function($request, $id) use($app) {
