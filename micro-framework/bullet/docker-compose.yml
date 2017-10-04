@@ -11,6 +11,16 @@ services:
      ports:
        - "3306:3306"
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - '9000:80'
+
   app:
     build: .docker/php
     env_file:
@@ -23,6 +33,6 @@ services:
     volumes_from:
       - app
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - "./.data/server/nginx:/var/log/nginx/"

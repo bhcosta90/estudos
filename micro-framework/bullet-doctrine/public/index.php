@@ -15,7 +15,7 @@ $app->path('/cliente', function($request) use ($app) {
         $app->format('json', function($request) use($app) {
             $serializer = JMS\Serializer\SerializerBuilder::create()->build();
             $jsonContent = $serializer->serialize(getEntityManager()->getRepository(\Entity\Cliente::class)->findAll(), 'json');
-            return $app->response(201, $jsonContent);
+            return $app->response(200, $jsonContent);
         });
     });
 

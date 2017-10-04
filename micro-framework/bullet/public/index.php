@@ -26,6 +26,7 @@ $app->path('/cliente', function($request) use ($app) {
 
     $app->post(function() use($app){
         $sql = new BCosta\Classe\Insert("cliente", ["nome" => time()]);
+
         $cliente = $sql->persist();
 
         $sql->flush();
