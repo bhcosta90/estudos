@@ -8,7 +8,7 @@ function getEm(){
     static $conn;
 
     if($conn===null){
-        $conn = new \Medoo\Medoo([
+        $conn = new \BHCosta\Medoo\Medoo([
             // required
             'database_type' => 'mysql',
             'database_name' => 'doctrine',

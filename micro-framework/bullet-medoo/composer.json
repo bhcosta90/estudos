@@ -1,10 +1,9 @@
 {
     "require": {
-        "vlucas/bulletphp": "^1.4",
-        "catfan/Medoo": "^1.4"
+        "bhcosta90/medoo": "^1.0"
     },
     "example": [
-	"https://medoo.in/api/new"
+	       "https://medoo.in/api/new"
     ],
     "autoload": {
         "psr-4": {
