@@ -4,11 +4,10 @@
         "catfan/Medoo": "^1.4"
     },
     "example": [
-	"https://medoo.in/api/new"	
+	"https://medoo.in/api/new"
     ],
     "autoload": {
         "psr-4": {
-            "BCosta\\" : "src/BCosta"
         }
     },
     "doc": "http://bulletphp.com"
