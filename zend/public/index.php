@@ -37,10 +37,6 @@ $appConfig = require __DIR__ . '/../config/application.config.php';
 if (file_exists(__DIR__ . '/../config/development.config.php')) {
     $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
 }
-
-<<<<<<< HEAD
-
-=======
 function tempoExecucao($start = null) {
     // Calcula o microtime atual
     $mtime = microtime(); // Pega o microtime
@@ -57,7 +53,6 @@ function tempoExecucao($start = null) {
 
 define('MICRO', tempoExecucao());
 define('TEMPO', floatval(time()));
->>>>>>> f37a92246b6a21f1f8ee32c1c5305635d83da0b0
 
 // Run the application!
 Application::init($appConfig)->run();
