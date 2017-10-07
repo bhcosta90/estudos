@@ -1,0 +1,42 @@
+version: '2'  # version of compose format
+
+services:
+   fakes3:
+    image: olalond3/fakes3
+    ports:
+      - "4567:4567"
+    volumes:
+      - "./.data/fakes3:/fakes3/data"
+   web:
+    env_file:
+      - .env
+    volumes:
+      - ./www:/var/www/es-togo-ms/FlaskApp # mount point
+      - ./.log:/var/log/httpd/ # mount point
+    ports:
+      - 80:80  # host:container
+    build:
+      context: .docker/dev
+      dockerfile: Dockerfile
+    #   args:
+    #     http_proxy: "http://proxy.aws.gkt.grupokabum.com.br:3128"
+    #     https_proxy: "http://proxy.aws.gkt.grupokabum.com.br:3128"
+    #     HTTP_PROXY: "http://proxy.aws.gkt.grupokabum.com.br:3128"
+    #     HTTPS_PROXY: "http://proxy.aws.gkt.grupokabum.com.br:3128"
+        # elastic:
+        #   image: elasticsearch:5.4
+        #   ports:
+        #    - "9200:9200"
+        #   volumes:
+        #    - ./.data/elasticsearch/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
+        # web:
+        #   build: '.docker/dev'  # path is relative to docker-compose.yml localtion
+        #   volumes:
+        #     - ./www:/var/www/es-togo-ms/FlaskApp # mount point
+        #     - ./.log:/var/log/httpd/ # mount point
+        #   ports:
+        #     - 80:80  # host:container
+        #   env_file:
+        #       - .env
+        # links:
+        #  - elastic
