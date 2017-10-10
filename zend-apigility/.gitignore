@@ -1,34 +1,7 @@
-.*
-!.gitignore
-*.dev*
-# Created by https://www.gitignore.io/api/zendframework
-
-### ZendFramework ###
-# Composer files
-composer.phar
+.vagrant/
 vendor/
-
-# Local configs
-config/autoload/*.local.php
-
-# Binary gettext files
-*.mo
-
-# Data
-data
-data/logs/
-data/cache/
-data/sessions/
-data/tmp/
-temp/
-
-#Doctrine 2
-data/DoctrineORMModule/Proxy/
-data/DoctrineORMModule/cache/
-
-
-# Legacy ZF1
-demos/
-extras/documentation
-
-# End of https://www.gitignore.io/api/zendframework
+config/development.config.php
+data/cache/*
+!data/cache/.gitkeep
+phpunit.xml
+data/server

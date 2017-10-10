@@ -1,26 +1,27 @@
-version: '2'
-
+version: "2"
 services:
-
   db:
-     environment:
-       - MYSQL_ROOT_PASSWORD=root
-       - MYSQL_DATABASE=doctrine
-       - MYSQL_USER=root
+     env_file:
+       - .env
      image: "mysql:5.7"
      volumes:
        - "./data/server/mysql:/var/lib/mysql"
      ports:
        - "3306:3306"
-
-  app:
-    build: .docker/php
-    volumes:
-      - .:/app
-
-  nginx:
-    build: .docker/nginx
-    volumes_from:
-      - app
+  apigility:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "80:80"
+     - "80:80"
+    volumes:
+     - .:/var/www
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+        - db
+      environment:
+        PMA_HOST: db
+        PMA_PORT: 3306
+      ports:
+        - '9000:80'

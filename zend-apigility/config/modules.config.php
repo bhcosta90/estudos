@@ -24,9 +24,6 @@ return [
     'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
-    'DoctrineModule',
-    'DoctrineORMModule',
-    'ZF\Apigility\Documentation\Swagger',
     'Application',
-    'Automovel',
+    'Cliente',
 ];
