@@ -1,0 +1,28 @@
+---
+services:
+  apigility:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ".:/var/www"
+  db:
+    env_file:
+      - ./../../server/mysql.env
+    image: "mysql:5.7"
+    ports:
+      - "3306:3306"
+    volumes:
+       - "./../../server/mysql:/var/lib/mysql"
+  phpmyadmin:
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    ports:
+      - "9000:80"
+version: "2"

@@ -1,0 +1,27 @@
+<html xmlns:ng="http://angularjs.org">
+
+  <head>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./directiva.js"></script>
+    <script type="text/javascript">
+    angular.module('app', ['BRCas.directive'])
+    .controller('MainCtrl', function($scope){
+        $scope.v = "yyy";
+        $scope.valores = ["yyy"];
+    });
+    </script>
+  </head>
+
+  <body ng:app="app" ng:controller="MainCtrl">
+    <h1>Hello Stackoverflow!</h1>
+
+    <p>Value1: <select ng-model="v"><option ng-repeat="valor in valores">{{valor}}</option></select></p>
+    <p>Value2: {{valor2}}</p>
+
+    Send this to the iframe:
+    <a ng-model="valores" ng-atualizar='v' href='#' adicionar="categoria.html?id=1">Atualizar 1</a>
+    <a ng-model="valor2" href='#' adicionar="categoria.html">Atualizar 2</a>
+  </body>
+
+</html>

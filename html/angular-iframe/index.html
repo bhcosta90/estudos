@@ -1,0 +1,35 @@
+<html xmlns:ng="http://angularjs.org">
+
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+    angular.module('app', [])
+    .controller('MainCtrl', function($scope){
+
+        window.atualizarValor = function(data){
+            $scope.$apply(function(){
+                $scope.valor = data;
+            })
+        }
+
+        $scope.updateIframe = function() {
+          document.getElementById('iframe').contentWindow.updatedata($scope.data);
+        };
+        
+    });
+    </script>
+  </head>
+
+  <body ng:app="app" ng:controller="MainCtrl">
+    <h1>Hello Stackoverflow!</h1>
+
+    <p>Value: {{valor}}</p>
+
+    Send this to the iframe:
+    <input type="text" ng:change="updateIframe()" ng:model="data"><br>
+    <br>
+
+    <iframe id="iframe" src="child.html"></iframe>
+  </body>
+
+</html>

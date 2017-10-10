@@ -1,0 +1,24 @@
+---
+services:
+  fakes3:
+    image: olalond3/fakes3
+    ports:
+      - "4567:4567"
+    volumes:
+      - "./../../server/fakes3:/fakes3/data"
+  php:
+    build: "."
+    mem_limit: 500m
+    volumes:
+      - "./:/var/www/html"
+      - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+  web:
+    image: "nginx:latest"
+    mem_limit: 96m
+    ports:
+      - "80:80"
+    volumes:
+      - ".:/var/www/html"
+      - "./etc/nginx/:/etc/nginx/conf.d/"
+      - "./../../server/nginx/logs:/var/log/nginx/"
+version: "2"

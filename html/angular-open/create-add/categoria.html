@@ -1,0 +1,23 @@
+<html xmlns:ng="http://angularjs.org">
+
+<head>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./directiva.js"></script>
+    <script type="text/javascript">
+
+    angular.module('app', ['BRCas.directive'])
+    .controller('MainCtrl', function($scope){
+
+    });
+    </script>
+</head>
+
+<body ng:app="app" ng:controller="MainCtrl">
+    <form ng-submit="salvar('123', data)">
+        <input type="text" ng:model="data">
+        <button href='#'>Adicionar</button>
+    </form>
+</body>
+
+</html>
