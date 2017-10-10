@@ -1,8 +1,0 @@
-.vagrant/
-vendor/
-config/development.config.php
-data/cache/*
-data/server
-!data/cache/.gitkeep
-phpunit.xml
-.idea
