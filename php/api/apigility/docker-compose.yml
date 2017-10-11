@@ -1,11 +1,9 @@
 ---
 services:
-  apigility:
+  php:
     build:
       context: "."
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
     volumes:
       - ".:/var/www"
   db:
@@ -15,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-       - "./../../server/mysql:/var/lib/mysql"
+       - "./../../server/data/mysql:/var/lib/mysql"
   phpmyadmin:
     environment:
       PMA_HOST: db
@@ -25,4 +23,12 @@ services:
       - db
     ports:
       - "9000:80"
+  web:
+      image: "nginx:latest"
+      mem_limit: 96m
+      ports:
+        - "80:80"
+      volumes:
+        - ".:/var/www/"
+        - "./../../server/nginx:/etc/nginx/conf.d/"
 version: "2"
