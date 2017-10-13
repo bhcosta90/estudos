@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/bower_components/pickadate/lib/themes/default.css" />
+    <link rel="stylesheet" href="/bower_components/pickadate/lib/themes/default.date.css" />
+    <link rel="stylesheet" href="/bower_components/pickadate/lib/themes/default.time.css" />
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/pickadate/lib/picker.js"></script>
+    <script type="text/javascript" src="/bower_components/pickadate/lib/picker.date.js"></script>
+    <script type="text/javascript" src="/bower_components/pickadate/lib/picker.time.js"></script>
+    <script type="text/javascript" src="/bower_components/pickadate/lib/translations/pt_BR.js"></script>
+    <!-- <script type="text/javascript" src="/bower_components/pickadate/lib/picker.date.js"></script> -->
+    <script>
+    $(function(){
+        $('#data').pickadate({
+            format: 'dd/mm/yyyy',
+        })
+        $('#hora').pickatime({
+          formatSubmit: 'HH:i',
+          hiddenName: false
+        })
+    })
+
+    function teste(){
+        alert($('#data').val());
+        alert($('#hora').val());
+    }
+    </script>
+</head>
+<body>
+<input type="text" id="data">
+<input type="text" id="hora">
+
+<button onclick="teste()">Ver</button>
+</body>
+</html>
