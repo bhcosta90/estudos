@@ -1,0 +1,4 @@
+Flask
+gunicorn
+pillow==4.3.0
+flask-restful==0.3.6
