@@ -3,7 +3,7 @@ services:
   web:
     volumes:
       - ./app:/app
-      - ./.tmp:/tmp
+      - ./app/.tmp:/tmp
     ports:
       - "80:80"
     environment:
