@@ -1,0 +1,11 @@
+version: '2'  # version of compose format
+
+services:
+    web:
+        build:
+            context: '.'
+            dockerfile: 'config/nodejs/Dockerfile'
+        volumes:
+            - "./app:/src/app"
+        ports:
+            - "3000:3000"
