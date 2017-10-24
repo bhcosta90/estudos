@@ -1,8 +1,40 @@
 <?php
 
-$imagem = file_get_contents('1.jpg');
+$imagem = file_get_contents('mensageiro.jpg');
 
-$data = array("arquivo" => base64_encode($imagem));
+$data = [
+    "arquivo" => base64_encode($imagem),
+    "size" => [
+        [
+            "name" => [
+                "begin" => "10",
+                "end" => "gg"
+            ],
+            "size" => "1000",
+            "white" => true,
+            "extension" => ".jpg",
+            "path" => "/produtos/" . time(),
+        ],
+        [
+            "name" => [
+                "begin" => "10",
+                "end" => "g"
+            ],
+            "size" => "800",
+            "white" => true,
+            "extension" => ".jpg",
+            "path" => "/produtos/" . time(),
+        ],
+        [
+            "name" => [
+                "begin" => "10",
+                "end" => "original"
+            ],
+            "extension" => ".jpg",
+            "path" => "/produtos/".time(),
+        ]
+    ]
+];
 $data_string = json_encode($data);
 
 $ch = curl_init('http://localhost/upload');

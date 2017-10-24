@@ -2,38 +2,43 @@ import math
 from PIL import Image
 
 class Resize:
-    def resizeImage(self, image, imageNew, tamanho):
+    def resizeImage(self, image, imageNew, tamanho, white=True):
         im = Image.open(image)
         old_width, old_height = im.size
 
-        if old_width > tamanho:
-            old_width = tamanho
+        if(tamanho > 0):
+            if old_width > tamanho:
+                old_width = tamanho
 
-        if old_height > tamanho:
-            old_height = tamanho
+            if old_height > tamanho:
+                old_height = tamanho
 
-        if old_height > old_width and old_height > tamanho:
-            new_height = tamanho
-            new_width = (old_width * new_height) / old_height
-        elif old_width > old_height and old_width > tamanho:
-            new_width = tamanho
-            new_height = (old_height * new_width) / old_width
-        elif old_height > tamanho:
-            new_width = old_width
-            new_height = tamanho
-        elif old_height > tamanho:
-            new_width = tamanho
-            new_height = old_height
-        elif old_height > tamanho and old_height > tamanho:
-            new_width = tamanho
-            new_height = tamanho
+            if old_height > old_width and old_height > tamanho:
+                new_height = tamanho
+                new_width = (old_width * new_height) / old_height
+            elif old_width > old_height and old_width > tamanho:
+                new_width = tamanho
+                new_height = (old_height * new_width) / old_width
+            elif old_height > tamanho:
+                new_width = old_width
+                new_height = tamanho
+            elif old_height > tamanho:
+                new_width = tamanho
+                new_height = old_height
+            elif old_height > tamanho and old_height > tamanho:
+                new_width = tamanho
+                new_height = tamanho
+            else:
+                new_width = old_width
+                new_height = old_height
+
+            im = im.resize( (int(new_width), int(new_height)), Image.ANTIALIAS )
+            im.save(imageNew)
+            if(white == True):
+                self.imageToWhite(imageNew, imageNew, tamanho)
         else:
-            new_width = old_width
-            new_height = old_height
-
-        im = im.resize( (int(new_width), int(new_height)), Image.ANTIALIAS )
-        im.save(imageNew)
-        self.imageToWhite(imageNew, imageNew, tamanho)
+            im = im.resize( (int(old_width), int(old_height)), Image.ANTIALIAS )
+            im.save(imageNew)
 
         return imageNew
 
