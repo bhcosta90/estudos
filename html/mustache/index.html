@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/mustache.js/mustache.min.js"></script>
+</head>
+<body onload="loadUser()">
+    <div id="target">Loading...</div>
+</body>
+</html>
+
+<script>
+function loadUser() {
+    $.get('template.mst', function(template) {
+      var rendered = Mustache.render(template, {name: "Luke"});
+      $('#target').html(rendered);
+    });
+}
+</script>

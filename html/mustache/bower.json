@@ -1,0 +1,21 @@
+{
+  "name": "mustache",
+  "homepage": "https://github.com/bhcosta90/estudos",
+  "authors": [
+    "Bruno Costa <bruno.henrique@kabum.com.br>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "mustache.js": "^2.3.0"
+  }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/handlebars/handlebars.min.js"></script>
+</head>
+<body onload="loadUser()">
+    <!--This is our template. -->
+    <!--Data will be inserted in its according place, replacing the brackets.-->
+    <script id="address-template" type="text/x-handlebars-template">
+        <p>You can find me in {{city}}. My address is {{number}} {{street}}.</p>
+    </script>
+
+    <!--Your new content will be displayed in here-->
+    <div class="content-placeholder"></div>
+</body>
+</html>
+
+<script>
+function loadUser() {
+    var theTemplateScript = $("#address-template").html();
+
+    // Compile the template
+    var theTemplate = Handlebars.compile(theTemplateScript);
+
+    // Define our data object
+    var context={
+        "city": "London",
+        "street": "Baker Street",
+        "number": "221B"
+    };
+
+    // Pass our data to the template
+    var theCompiledHtml = theTemplate(context);
+
+    // Add the compiled html to the page
+    $('.content-placeholder').html(theCompiledHtml);
+}
+</script>
